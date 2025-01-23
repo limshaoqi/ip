@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Elchino {
     private static final String name = "El Chino";
-    private static final List<String> list = new ArrayList<>();
+    private static final List<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Hola! Yo me llamo " + name + ". Encantado.");
@@ -22,8 +22,23 @@ public class Elchino {
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.println(i + ". " + list.get(i - 1));
                 }
+            } else if (token.startsWith("mark")) {
+                String[] parts = token.split(" ");
+                int n = Integer.parseInt(parts[1]);
+                list.get(n - 1).setDone();
+                System.out.println("Ok, lo he marcado como hecho:");
+                System.out.println(list.get(n - 1));
+            }
+            else if (token.startsWith("unmark")) {
+                String[] parts = token.split(" ");
+                int n = Integer.parseInt(parts[1]);
+                list.get(n - 1).setNotDone();
+                System.out.println("Ok, lo he marcado como deshacer:");
+                System.out.println(list.get(n - 1));
             } else {
-                list.add(token);
+                Task task = new Task(token);
+                list.add(task);
+
                 System.out.println("agregado: " + token);
             }
         }

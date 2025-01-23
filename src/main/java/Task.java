@@ -1,14 +1,22 @@
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected final String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    private void setDone() {
+    public void setDone() {
         this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
