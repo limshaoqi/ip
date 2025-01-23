@@ -18,6 +18,7 @@ public class Elchino {
             }
 
             if (token.equals("list")) {
+                System.out.println("Estas son tus tareas:");
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.println(i + ". " + list.get(i - 1));
                 }
