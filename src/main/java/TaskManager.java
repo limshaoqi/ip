@@ -68,13 +68,15 @@ public class TaskManager {
         System.out.println("Agregado: " + task);
     }
 
-    private void addEvent(String input) {
-        String[] details = input.split(" /from | /to ");
-        String description = details[0].trim();
-        String start = details[1].trim();
-        String end = details[2].trim();
-
-        Task task = new Event(description, start, end);
+    private void addEvent(String input) throws ElchinoException {
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new InvalidInputException();
+        }
+        String[] details = input.split(" /from | /to ", 3);
+        if (details.length < 3 || details[0].trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        Task task = new Event(details[0].trim(), details[1].trim(), details[2].trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
     }
