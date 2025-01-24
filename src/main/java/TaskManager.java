@@ -20,6 +20,7 @@ public class TaskManager {
             case "todo" -> addTodo(arguments);
             case "deadline" -> addDeadline(arguments);
             case "event" -> addEvent(arguments);
+            case "delete" -> deleteTask(arguments);
             default -> throw new InvalidCommandException(action);
         }
     }
@@ -101,5 +102,17 @@ public class TaskManager {
         } catch (NumberFormatException e) {
             throw new InvalidInputException();
         }
+    }
+
+    private void deleteTask(String input) throws ElchinoException {
+        if (input.trim().isEmpty()) {
+            throw new InvalidInputException();
+        }
+
+        int taskNumber = parseTaskNumber(input);
+        Task task = taskList.remove(taskNumber - 1);
+        System.out.println("Ok, he eliminado esta tarea:");
+        System.out.println(task);
+        System.out.print("Ahora tienes " + taskList.size() + " tareas en tu lista.");
     }
 }
