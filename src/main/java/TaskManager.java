@@ -12,7 +12,7 @@ public class TaskManager {
             case "mark" -> {
                 int n = Integer.parseInt(parts[1]);
                 taskList.get(n - 1).setDone();
-                System.out.println("Ok, lo he mercado como hecho:");
+                System.out.println("Ok, lo he marcado como hecho:");
                 System.out.println(taskList.get(n - 1));
             }
             case "unmark" -> {
