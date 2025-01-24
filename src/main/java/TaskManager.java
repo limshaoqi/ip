@@ -16,12 +16,7 @@ public class TaskManager {
         switch (action) {
             case "list" -> printTaskList();
             case "mark" -> markTask(parts[1]);
-            case "unmark" -> {
-                int n = Integer.parseInt(parts[1]);
-                taskList.get(n - 1).setNotDone();
-                System.out.println("Ok, lo he marcado como deshacer:");
-                System.out.println(taskList.get(n - 1));
-            }
+            case "unmark" -> unmarkTask(parts[1]);
             case "todo" -> addTodo(parts[1]);
             case "deadline" -> addDeadline(parts[1]);
             case "event" -> addEvent(parts[1]);
@@ -44,6 +39,13 @@ public class TaskManager {
         int taskNumber = parseTaskNumber(input);
         taskList.get(taskNumber - 1).setDone();
         System.out.println("Ok, lo he marcado como hecho:");
+        System.out.println(taskList.get(taskNumber - 1));
+    }
+
+    private void unmarkTask(String input) throws ElchinoException {
+        int taskNumber = parseTaskNumber(input);
+        taskList.get(taskNumber - 1).setNotDone();
+        System.out.println("Ok, lo he marcado como deshacer:");
         System.out.println(taskList.get(taskNumber - 1));
     }
 
