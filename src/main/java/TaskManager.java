@@ -49,19 +49,20 @@ public class TaskManager {
         if (input.trim().isEmpty()) {
             throw new EmptyDescriptionException();
         }
-        Task task = new Todo(input[1].trim());
+        Task task = new Todo(input.trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
     }
 
     private void addDeadline(String input) throws ElchinoException {
-        if (parts.length < 2 || !parts[1].contains("/by")) {
+        if (!input.contains("/by")) {
             throw new InvalidInputException();
         }
-        String[] details = parts[1].split(" /by ", 2);
+        String[] details = input.split(" /by ", 2);
         if (details[0].trim().isEmpty()) {
             throw new EmptyDescriptionException();
         }
+
         Task task = new Deadline(details[0].trim(), details[1].trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
