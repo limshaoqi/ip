@@ -8,4 +8,8 @@ public class InvalidInputException extends ElchinoException {
     public InvalidInputException(int taskNumber) {
         super("Lo siento, no puedo encontrar la tarea " + taskNumber + ".");
     }
+
+    public InvalidInputException(String message) {
+        super("Entrada inválida: " + message);
+    }
 }

@@ -59,8 +59,11 @@ public class TaskManager {
     }
 
     private void addDeadline(String input) throws ElchinoException {
+        if (input.trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         if (!input.contains("/by")) {
-            throw new InvalidInputException();
+            throw new InvalidInputException("Por favor usa /by para especificar la fecha y hora.");
         }
         String[] details = input.split(" /by ", 2);
         if (details[0].trim().isEmpty()) {
@@ -73,8 +76,11 @@ public class TaskManager {
     }
 
     private void addEvent(String input) throws ElchinoException {
+        if (input.trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new InvalidInputException();
+            throw new InvalidInputException("Por favor usa /from y /to para especificar la fecha y hora.");
         }
         String[] details = input.split(" /from | /to ", 3);
         if (details.length < 3 || details[0].trim().isEmpty()) {
