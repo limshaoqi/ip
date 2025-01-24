@@ -19,9 +19,10 @@ public abstract class Task {
         return this.description;
     }
 
+    public abstract String getTaskType();
+
     @Override
     public String toString() {
-        String status = isDone ? "[X]" : "[ ]";
-        return status + " " + description;
+        return String.format("[%s] %s, isDone ? "X" : " ", description);
     }
 }
