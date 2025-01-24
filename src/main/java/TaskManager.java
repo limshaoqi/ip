@@ -27,12 +27,7 @@ public class TaskManager {
                 System.out.println("Ok, lo he marcado como deshacer:");
                 System.out.println(taskList.get(n - 1));
             }
-            case "todo" -> {
-                String description = parts[1].trim();
-                Task task = new Todo(description);
-                taskList.add(task);
-                System.out.println("Agregado: " + task);
-            }
+            case "todo" -> addTodo(parts[1]);
             case "deadline" -> addDeadline(parts[1]);
             case "event" -> addEvent(parts[1]);
             default -> throw new InvalidCommandException(action);
@@ -48,6 +43,15 @@ public class TaskManager {
         for (int i = 1; i <= taskList.size(); i++) {
             System.out.println(i + ". " + taskList.get(i - 1));
         }
+    }
+
+    private void addTodo(String input) throws EmptyDescriptionException {
+        if (input.length < 2 || input[1].trim().isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+        Task task = new Todo(input[1].trim());
+        taskList.add(task);
+        System.out.println("Agregado: " + task);
     }
 
     private void addDeadline(String input) {
