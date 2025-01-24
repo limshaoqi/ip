@@ -28,35 +28,3 @@ public class Elchino {
     }
 }
 
-//        while (true) {
-//            String token = scanner.nextLine();
-//            if (token.equals("bye")) {
-//                System.out.println("Hasta pronto!");
-//                return;
-//            }
-//
-//            if (token.equals("list")) {
-//                System.out.println("Estas son tus tareas:");
-//                for (int i = 1; i <= list.size(); i++) {
-//                    System.out.println(i + ". " + list.get(i - 1));
-//                }
-//            } else if (token.startsWith("mark")) {
-//                String[] parts = token.split(" ");
-//                int n = Integer.parseInt(parts[1]);
-//                list.get(n - 1).setDone();
-//                System.out.println("Ok, lo he marcado como hecho:");
-//                System.out.println(list.get(n - 1));
-//            }
-//            else if (token.startsWith("unmark")) {
-//                String[] parts = token.split(" ");
-//                int n = Integer.parseInt(parts[1]);
-//                list.get(n - 1).setNotDone();
-//                System.out.println("Ok, lo he marcado como deshacer:");
-//                System.out.println(list.get(n - 1));
-//            } else {
-//                Task task = new Task(token);
-//                list.add(task);
-//
-//                System.out.println("agregado: " + token);
-//            }
-
