@@ -40,10 +40,14 @@ public class TaskManager {
     }
 
     private void printTaskList() {
+        if (taskList.isEmpty()) {
+            System.out.println("No tienes tareas todavía.");
+            return;
+        }
         System.out.println("Estas son tus tareas:");
-                for (int i = 1; i <= taskList.size(); i++) {
-                    System.out.println(i + ". " + taskList.get(i - 1));
-                }
+        for (int i = 1; i <= taskList.size(); i++) {
+            System.out.println(i + ". " + taskList.get(i - 1));
+        }
     }
 
     private void addDeadline(String input) {
@@ -61,7 +65,7 @@ public class TaskManager {
         String description = details[0].trim();
         String start = details[1].trim();
         String end = details[2].trim();
-        
+
         Task task = new Event(description, start, end);
         taskList.add(task);
         System.out.println("Agregado: " + task);
