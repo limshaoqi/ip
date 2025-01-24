@@ -83,11 +83,11 @@ public class TaskManager {
 
     private int parseTaskNumber(String input) throws InvalidInputException {
         try {
-            int n = Integer.parseInt(input);
-            if (n < 1 || n > taskList.size()) {
-                throw new InvalidInputException(n);
+            int taskNumber = Integer.parseInt(input);
+            if (taskNumber < 1 || taskNumber > taskList.size()) {
+                throw new InvalidInputException(taskNumber);
             }
-            return n;
+            return taskNumber;
         } catch (NumberFormatException e) {
             throw new InvalidInputException();
         }
