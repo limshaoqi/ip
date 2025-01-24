@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class InvalidInputException extends ElchinoException {
     public InvalidInputException() {
         super("Entrada inválida: Por favor ingresa un número válido.");

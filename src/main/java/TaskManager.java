@@ -1,9 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
+
+import Exceptions.ElchinoException;
+import Exceptions.InvalidCommandException;
+import Exceptions.InvalidInputException;
+import Exceptions.EmptyDescriptionException;
+
 public class TaskManager {
     private final List<Task> taskList = new ArrayList<>();
 
-    public void handleCommand(String command) {
+    public void handleCommand(String command) throws ElchinoException {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
 
@@ -29,7 +35,7 @@ public class TaskManager {
             }
             case "deadline" -> addDeadline(parts[1]);
             case "event" -> addEvent(parts[1]);
-            default -> System.out.println("Lo siento, no entiendo.");
+            default -> throw new InvalidCommandException(action);
         }
     }
 
@@ -59,5 +65,17 @@ public class TaskManager {
         Task task = new Event(description, start, end);
         taskList.add(task);
         System.out.println("Agregado: " + task);
+    }
+
+    private int parseTaskNumber(String input) throws InvalidInputException {
+        try {
+            int n = Integer.parseInt(input);
+            if (n < 1 || n > taskList.size()) {
+                throw new InvalidInputException(n);
+            }
+            return n;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException();
+        }
     }
 }
