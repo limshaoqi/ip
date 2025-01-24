@@ -12,14 +12,14 @@ public class TaskManager {
     public void handleCommand(String command) throws ElchinoException {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
-
+        String arguments = (parts.length > 1) ? parts[1] : "";
         switch (action) {
             case "list" -> printTaskList();
-            case "mark" -> markTask(parts[1]);
-            case "unmark" -> unmarkTask(parts[1]);
-            case "todo" -> addTodo(parts[1]);
-            case "deadline" -> addDeadline(parts[1]);
-            case "event" -> addEvent(parts[1]);
+            case "mark" -> markTask(arguments);
+            case "unmark" -> unmarkTask(arguments);
+            case "todo" -> addTodo(arguments);
+            case "deadline" -> addDeadline(arguments);
+            case "event" -> addEvent(arguments);
             default -> throw new InvalidCommandException(action);
         }
     }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import Exceptions.ElchinoException;
 
 public class Elchino {
     private static final String name = "El Chino";
@@ -11,19 +12,30 @@ public class Elchino {
         System.out.println("¿Le puedo ayudar en algo?");
 
         Scanner scanner = new Scanner(System.in);
-        processCommands(scanner);
-        scanner.close();
-        System.out.println("Gracias por usar El Chino. ¡Adiós!");
+        try {
+            processCommands(scanner);
+        } finally {
+            scanner.close();
+            System.out.println("Gracias por usar El Chino. ¡Adiós!");
+        }
     }
 
     private static void processCommands(Scanner scanner) {
         while (true) {
-            String input = scanner.nextLine().trim();
-            if (input.equals("bye")) {
-                System.out.println("Hasta pronto!");
-                break;
+            try {
+                String input = scanner.nextLine().trim();
+                if (input.equals("bye")) {
+                    System.out.println("Hasta pronto!");
+                    break;
+                }
+                taskManager.handleCommand(input);
+            } catch (ElchinoException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Lo siento, ha ocurrido un error inesperado.");
+            } finally {
+                System.out.println("--------------------");
             }
-            taskManager.handleCommand(input);
         }
     }
 }
