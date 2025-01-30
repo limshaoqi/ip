@@ -8,6 +8,14 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public String getFrom() {
+        return start;
+    }
+
+    public String getBy() {
+        return end;
+    }
+
     @Override
     public String getTaskType() {
         return "E";
