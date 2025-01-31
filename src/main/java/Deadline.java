@@ -6,6 +6,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public String getBy() {
+        return deadline;
+    }
+
     @Override
     public String getTaskType() {
         return "D";
@@ -14,5 +18,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), deadline);
+    }
+
+    @Override
+    public String storeTask() {
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, deadline);
     }
 }

@@ -8,6 +8,14 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public String getFrom() {
+        return start;
+    }
+
+    public String getBy() {
+        return end;
+    }
+
     @Override
     public String getTaskType() {
         return "E";
@@ -16,5 +24,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+    }
+
+    @Override
+    public String storeTask() {
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, start, end);
     }
 }

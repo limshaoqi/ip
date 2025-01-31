@@ -21,6 +21,8 @@ public abstract class Task {
 
     public abstract String getTaskType();
 
+    public abstract String storeTask();
+
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone ? "X" : " ", description);

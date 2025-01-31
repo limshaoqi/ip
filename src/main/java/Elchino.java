@@ -5,7 +5,7 @@ import Exceptions.ElchinoException;
 
 public class Elchino {
     private static final String name = "El Chino";
-    private static final TaskManager taskManager = new TaskManager();
+    private static final TaskManager taskManager = new TaskManager("./data/tasks.txt");
 
     public static void main(String[] args) {
         System.out.println("Hola! Yo me llamo " + name + ". Encantado.");
@@ -32,6 +32,7 @@ public class Elchino {
             } catch (ElchinoException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Lo siento, ha ocurrido un error inesperado.");
             } finally {
                 System.out.println("--------------------");
