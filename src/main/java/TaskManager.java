@@ -7,7 +7,20 @@ import Exceptions.InvalidInputException;
 import Exceptions.EmptyDescriptionException;
 
 public class TaskManager {
-    private final List<Task> taskList = new ArrayList<>();
+    private final List<Task> taskList;
+    private Storage storage;
+
+    public TaskManager(String filepath) {
+        this.taskList = new ArrayList<>();
+        Storage tempStorage = null;
+        try {
+            tempStorage = new Storage(filepath);
+            this.taskList.addAll(tempStorage.loadTasks());
+        } catch (ElchinoException e) {
+            System.out.println("Error al cargar las tareas.");
+        }
+        this.storage = tempStorage;
+    }
 
     public void handleCommand(String command) throws ElchinoException {
         String[] parts = command.split(" ", 2);
@@ -41,6 +54,7 @@ public class TaskManager {
         taskList.get(taskNumber - 1).setDone();
         System.out.println("Ok, lo he marcado como hecho:");
         System.out.println(taskList.get(taskNumber - 1));
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 
     private void unmarkTask(String input) throws ElchinoException {
@@ -48,15 +62,17 @@ public class TaskManager {
         taskList.get(taskNumber - 1).setNotDone();
         System.out.println("Ok, lo he marcado como deshacer:");
         System.out.println(taskList.get(taskNumber - 1));
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 
-    private void addTodo(String input) throws EmptyDescriptionException {
+    private void addTodo(String input) throws EmptyDescriptionException, ElchinoException {
         if (input.trim().isEmpty()) {
             throw new EmptyDescriptionException();
         }
         Task task = new Todo(input.trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 
     private void addDeadline(String input) throws ElchinoException {
@@ -74,6 +90,7 @@ public class TaskManager {
         Task task = new Deadline(details[0].trim(), details[1].trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 
     private void addEvent(String input) throws ElchinoException {
@@ -83,13 +100,16 @@ public class TaskManager {
         if (!input.contains("/from") || !input.contains("/to")) {
             throw new InvalidInputException("Por favor usa /from y /to para especificar la fecha y hora.");
         }
-        String[] details = input.split(" /from | /to ", 3);
-        if (details.length < 3 || details[0].trim().isEmpty()) {
-            throw new EmptyDescriptionException();
-        }
-        Task task = new Event(details[0].trim(), details[1].trim(), details[2].trim());
+        String[] parts = input.split(" /from ", 2);
+        if (parts.length < 2) throw new InvalidInputException("Formato incorrecto para Event.");
+
+        String[] details = parts[1].split(" /to ", 2);
+        if (details.length < 2) throw new InvalidInputException("Formato incorrecto para Event.");
+
+        Task task = new Event(parts[0].trim(), details[0].trim(), details[1].trim());
         taskList.add(task);
         System.out.println("Agregado: " + task);
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 
     private int parseTaskNumber(String input) throws InvalidInputException {
@@ -113,6 +133,7 @@ public class TaskManager {
         Task task = taskList.remove(taskNumber - 1);
         System.out.println("Ok, he eliminado esta tarea:");
         System.out.println(task);
-        System.out.print("Ahora tienes " + taskList.size() + " tareas en tu lista.");
+        System.out.println("Ahora tienes " + taskList.size() + " tareas en tu lista.");
+        storage.saveTasks(new ArrayList<>(taskList));
     }
 }
