@@ -1,13 +1,14 @@
+import java.time.LocalDateTime;
 public class Deadline extends Task {
-    protected String deadline;
+    private final LocalDateTime deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = parseDate(deadline);
     }
 
     public String getBy() {
-        return deadline;
+        return deadline.format(OUTPUT_DATE_FORMAT);
     }
 
     @Override
@@ -17,11 +18,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        return String.format("[D]%s (by: %s)", super.toString(), getBy());
     }
 
     @Override
     public String storeTask() {
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, deadline);
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, deadline.format(INPUT_DATE_FORMAT));
     }
 }
