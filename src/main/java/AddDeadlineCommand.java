@@ -4,6 +4,7 @@ import Exceptions.InvalidInputException;
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String deadline;
+    public static final String MESSAGE_ADD_DEADLINE = "Agregado: %s";
 
     public AddDeadlineCommand(String input) throws InvalidInputException {
         if (!input.contains("/by")) {
@@ -16,7 +17,9 @@ public class AddDeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
-        tasks.addTask(new Deadline(description, deadline));
+        Task task = new Deadline(description, deadline);
+        tasks.addTask(task);
+        ui.printMessage(String.format(MESSAGE_ADD_DEADLINE, task));
         storage.saveTasks(tasks.getTasks());
     }
 }

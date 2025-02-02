@@ -5,6 +5,7 @@ public class AddEventCommand extends Command {
     private final String description;
     private final String from;
     private final String to;
+    public static final String MESSAGE_ADD_EVENT = "Agregado: %s";
 
     public AddEventCommand(String input) throws InvalidInputException {
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
@@ -18,7 +19,9 @@ public class AddEventCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
-        tasks.addTask(new Event(description, from, to));
+        Task task = new Event(description, from, to);
+        tasks.addTask(task);
+        ui.printMessage(String.format(MESSAGE_ADD_EVENT, task));
         storage.saveTasks(tasks.getTasks());
     }
 }
