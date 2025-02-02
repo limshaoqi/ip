@@ -1,20 +1,38 @@
 package elchino.tasks;
+
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
+    /**
+     * Constructor for an event task.
+     * @param description The description of the event task.
+     * @param start The start date and time of the event.
+     * @param end The end date and time of the event.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = parseDate(start);
         this.end = parseDate(end);
     }
 
+    /**
+     * Retrieves the start date and time of the event.
+     * @return The formatted start date and time of the event.
+     */
     public String getFrom() {
         return start.format(OUTPUT_DATE_FORMAT);
     }
 
+    /**
+     * Retrieves the end date and time of the event.
+     * @return The formatted end date and time of the event.
+     */
     public String getBy() {
         return end.format(OUTPUT_DATE_FORMAT);
     }

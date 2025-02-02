@@ -1,15 +1,28 @@
 package elchino.storage;
 
 import java.io.*;
+
 import java.nio.file.Files;
+
 import java.nio.file.Path;
+
 import java.util.ArrayList;
+
 import elchino.exceptions.*;
+
 import elchino.tasks.*;
 
+/**
+ * Class to handle storage of tasks, allowing tasks to be loaded from and saved to a file.
+ */
 public class Storage {
     private final Path filePath;
 
+    /**
+     * Constructor for Storage.
+     * @param filePath The path to the file to store tasks.
+     * @throws ElchinoException if an error occurs during initialization
+     */
     public Storage(String filePath) throws ElchinoException {
         this.filePath = Path.of(filePath);
 
@@ -25,6 +38,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file.
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws ElchinoException if an error occurs during loading
+     */
     public ArrayList<Task> loadTasks() throws ElchinoException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
@@ -43,6 +61,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     * @param tasks An ArrayList of tasks to be saved to the file.
+     * @throws ElchinoException if an error occurs during saving.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws ElchinoException {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : tasks) {
@@ -54,6 +77,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Parses a line from the file into a Task object.
+     * @param line The line to be parsed as a task.
+     * @return The Task object parsed from the line.
+     */
     private Task parseTask(String line) {
         String[] details = line.split(" \\| ");
         if (details.length < 3) {

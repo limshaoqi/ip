@@ -1,8 +1,18 @@
 package elchino.parser;
+
 import elchino.exceptions.*;
 import elchino.commands.*;
 
+/**
+ * Parser to parse user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command.
+     * @param input The user input.
+     * @return The corresponding command.
+     * @throws ElchinoException if an error occurs during parsing.
+     */
     public static Command parse(String input) throws ElchinoException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
