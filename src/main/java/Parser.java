@@ -1,5 +1,7 @@
+import Exceptions.ElchinoException;
+
 public class Parser {
-    public static Command parse(String input) {
+    public static Command parse(String input) throws ElchinoException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
 
