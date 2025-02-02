@@ -1,4 +1,6 @@
-package Exceptions;
+package elchino.exceptions;
+
+import elchino.exceptions.ElchinoException;
 
 public class EmptyDescriptionException extends ElchinoException {
     public EmptyDescriptionException() {

@@ -1,4 +1,6 @@
-import Exceptions.ElchinoException;
+package elchino.parser;
+import elchino.exceptions.*;
+import elchino.commands.*;
 
 public class Parser {
     public static Command parse(String input) throws ElchinoException {

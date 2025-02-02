@@ -1,5 +1,8 @@
-import Exceptions.ElchinoException;
-import Exceptions.InvalidInputException;
+package elchino.commands;
+import elchino.exceptions.*;
+import elchino.storage.Storage;
+import elchino.tasks.*;
+import elchino.ui.Ui;
 
 public class AddEventCommand extends Command {
     private final String description;

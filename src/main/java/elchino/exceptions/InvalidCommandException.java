@@ -1,4 +1,5 @@
-package Exceptions;
+package elchino.exceptions;
+import elchino.exceptions.ElchinoException;
 
 public class InvalidCommandException extends ElchinoException {
     public InvalidCommandException(String command) {

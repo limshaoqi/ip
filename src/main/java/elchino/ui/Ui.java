@@ -1,6 +1,7 @@
+package elchino.ui;
 import java.util.Scanner;
-/* heavily inspired by addressbook-level2 TextUi.java */
 
+/* heavily inspired by addressbook-level2 TextUi.java */
 public class Ui {
     private final Scanner scanner;
 
