@@ -26,6 +26,7 @@ public class Parser {
             case "event" -> new AddEventCommand(parts[1]);
             case "delete" -> new DeleteCommand(parts[1]);
             case "bye" -> new ExitCommand();
+            case "find" -> new FindCommand(parts[1]);
             default -> new InvalidCommand(command);
         };
     }
