@@ -7,12 +7,19 @@ import elchino.tasks.Task;
 import elchino.tasks.TaskList;
 import elchino.ui.Ui;
 
-
+/**
+ * Command to add a deadline task.
+ */
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String deadline;
     public static final String MESSAGE_ADD_DEADLINE = "Agregado: %s";
 
+    /**
+     * Constructor for AddDeadlineCommand with a description and deadline.
+     * @param input String containing the description and deadline.
+     * @throws InvalidInputException if input format is invalid.
+     */
     public AddDeadlineCommand(String input) throws InvalidInputException {
         if (!input.contains("/by")) {
             throw new InvalidInputException("Por favor usa /by para especificar la fecha.");
