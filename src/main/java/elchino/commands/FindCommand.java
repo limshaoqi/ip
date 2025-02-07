@@ -8,22 +8,25 @@ import java.util.ArrayList;
 
 public class FindCommand extends Command {
     private final String keyword;
+    private static final String MESSAGE_NO_MATCHING_TASKS = "No se encontraron tareas coincidentes.";
+    private static final String MESSAGE_MATCHING_TASKS = "Aquí están los partidos:";
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
         ArrayList<String> matchingTasks = tasks.findTasks(keyword);
 
         if (matchingTasks.isEmpty()) {
-            ui.printMessage("No se encontraron tareas coincidentes.");
+            return MESSAGE_NO_MATCHING_TASKS;
         } else {
-            ui.printMessage("Aquí están los partidos:");
+            StringBuilder response = new StringBuilder(MESSAGE_MATCHING_TASKS + "\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.printMessage((i + 1) + ". " + matchingTasks.get(i));
+                response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
             }
+            return response.toString().trim();
         }
     }
 }

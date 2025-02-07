@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("elchino.Elchino")
+    mainClass.set("elchino.Launcher")
 }
 
 shadowJar {

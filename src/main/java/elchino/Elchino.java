@@ -3,15 +3,10 @@ package elchino;
 import java.util.ArrayList;
 
 import elchino.exceptions.*;
-
 import elchino.ui.Ui;
-
 import elchino.tasks.*;
-
 import elchino.storage.Storage;
-
 import elchino.parser.Parser;
-
 import elchino.commands.*;
 
 /**
@@ -19,30 +14,39 @@ import elchino.commands.*;
  * Initializes the chatbot and runs the chatbot.
  */
 public class Elchino {
-    private static final String name = "El Chino";
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
-    /* inspired by chatgpt4 for having tempTasks to fix assignment bug */
     /**
      * Constructor for El Chino with a specified file path.
+     * Handles any exceptions during initialization gracefully.
+     *
      * @param filePath The file path to store the tasks.
-     * @throws ElchinoException If there is an error initializing El Chino.
      */
-    public Elchino(String filePath) throws ElchinoException {
+    public Elchino(String filePath) {
         this.ui = new Ui();
-        TaskList tempTasks;
         Storage tempStorage;
+        TaskList tempTasks;
 
         try {
             tempStorage = new Storage(filePath);
-            tempTasks = new TaskList(tempStorage.loadTasks());
         } catch (ElchinoException e) {
-            ui.printMessage(e.getMessage());
-            tempStorage = new Storage(filePath);
+            ui.printMessage("Error al inicializar el almacenamiento: " + e.getMessage());
+            tempStorage = null;
+        }
+
+        if (tempStorage != null) {
+            try {
+                tempTasks = new TaskList(tempStorage.loadTasks());
+            } catch (ElchinoException e) {
+                ui.printMessage("Error al cargar las tareas: " + e.getMessage());
+                tempTasks = new TaskList(new ArrayList<>());
+            }
+        } else {
             tempTasks = new TaskList(new ArrayList<>());
         }
+
         this.storage = tempStorage;
         this.tasks = tempTasks;
     }
@@ -55,9 +59,9 @@ public class Elchino {
         while (true) {
             try {
                 String input = ui.readCommand();
-
                 Command command = Parser.parse(input);
                 command.execute(tasks, ui, storage);
+
                 if (command instanceof ExitCommand) {
                     break;
                 }
@@ -73,14 +77,27 @@ public class Elchino {
 
     /**
      * Main method to run the El Chino chatbot.
+     *
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
+        new Elchino("data/tasks.txt").run();
+    }
+
+    /**
+     * Gets the chatbot's response to user input (used for GUI interaction).
+     *
+     * @param input The user input.
+     * @return The chatbot's response.
+     */
+    public String getResponse(String input) {
         try {
-            new Elchino("data/tasks.txt").run();
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
         } catch (ElchinoException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
+        } catch (Exception e) {
+            return "¡Error desconocido! Por favor, inténtalo de nuevo.";
         }
     }
 }
-

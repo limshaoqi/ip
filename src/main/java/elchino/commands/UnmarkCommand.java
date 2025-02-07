@@ -22,9 +22,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
         tasks.unmarkTask(index);
-        ui.printMessage(String.format(MESSAGE_UNMARK_TASK, tasks.getTask(index)));
         storage.saveTasks(tasks.getTasks());
+        return String.format(MESSAGE_UNMARK_TASK, tasks.getTask(index));
     }
 }
