@@ -8,7 +8,7 @@ import elchino.ui.Ui;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.printTasks();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.getTasksAsString();
     }
 }

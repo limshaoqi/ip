@@ -29,10 +29,10 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
         Task task = new Event(description, from, to);
         tasks.addTask(task);
-        ui.printMessage(String.format(MESSAGE_ADD_EVENT, task));
         storage.saveTasks(tasks.getTasks());
+        return String.format(MESSAGE_ADD_EVENT, task);
     }
 }

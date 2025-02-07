@@ -30,10 +30,10 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
         Task task = new Deadline(description, deadline);
         tasks.addTask(task);
-        ui.printMessage(String.format(MESSAGE_ADD_DEADLINE, task));
         storage.saveTasks(tasks.getTasks());
+        return String.format(MESSAGE_ADD_DEADLINE, task);
     }
 }

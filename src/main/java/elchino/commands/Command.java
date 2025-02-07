@@ -18,6 +18,7 @@ public abstract class Command {
      * @param ui Ui object to interact with the user
      * @param storage Storage object to save tasks
      * @throws ElchinoException if an error occurs during execution
+     * @return String containing the output of the command
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException;
 }

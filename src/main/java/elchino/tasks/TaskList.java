@@ -57,17 +57,18 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in the list.
+     * Returns all tasks in the list as a string.
      */
-    public void printTasks() {
+    public String getTasksAsString() {
         if (tasks.isEmpty()) {
-            System.out.println("No hay tareas.");
-        } else {
-            System.out.println("Estas son tus tareas:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
-            }
+            return "No hay tareas.";
         }
+
+        StringBuilder string = new StringBuilder("Estas son tus tareas:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            string.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return string.toString().trim();
     }
 
     /**

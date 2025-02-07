@@ -24,9 +24,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws ElchinoException {
         Task removedTask = tasks.removeTask(index);
-        ui.printMessage(String.format(MESSAGE_DELETE, removedTask));
         storage.saveTasks(tasks.getTasks());
+        return String.format(MESSAGE_DELETE, removedTask);
     }
 }
