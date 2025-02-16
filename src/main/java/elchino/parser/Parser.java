@@ -9,6 +9,7 @@ import elchino.commands.*;
 public class Parser {
     /**
      * Parses the user input and returns the corresponding command.
+     *
      * @param input The user input.
      * @return The corresponding command.
      * @throws ElchinoException if an error occurs during parsing.
@@ -16,6 +17,8 @@ public class Parser {
     public static Command parse(String input) throws ElchinoException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
+
+        assert !requiresArgument(command) || parts.length > 1 : "Command requires an argument.";
 
         return switch (command) {
             case "list" -> new ListCommand();
@@ -28,6 +31,18 @@ public class Parser {
             case "bye" -> new ExitCommand();
             case "find" -> new FindCommand(parts[1]);
             default -> new InvalidCommand(command);
+        };
+    }
+    /**
+     * Checks if the command requires an argument.
+     *
+     * @param command The command to check.
+     * @return true if the command requires an argument, false otherwise.
+     */
+    private static boolean requiresArgument(String command) {
+        return switch (command) {
+            case "mark", "unmark", "todo", "deadline", "event", "delete", "find" -> true;
+            default -> false;
         };
     }
 }
