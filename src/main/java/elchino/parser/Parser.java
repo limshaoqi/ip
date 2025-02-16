@@ -30,6 +30,7 @@ public class Parser {
             case "delete" -> new DeleteCommand(parts[1]);
             case "bye" -> new ExitCommand();
             case "find" -> new FindCommand(parts[1]);
+            case "help" -> new HelpCommand();
             default -> new InvalidCommand(command);
         };
     }
