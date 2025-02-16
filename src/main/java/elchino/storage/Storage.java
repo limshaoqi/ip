@@ -17,7 +17,13 @@ import elchino.tasks.*;
  */
 public class Storage {
     private final Path filePath;
-
+    private static final String ERROR_CREATE_FILE = "Error: al crear el archivo de tareas.";
+    private static final String ERROR_READ_FILE = "Error: al leer el archivo.";
+    private static final String ERROR_WRITE_FILE = "Error: al escribir en el archivo.";
+    private static final String ERROR_MALFORMED_LINE = "Error: Línea malformada en el archivo: ";
+    private static final String ERROR_UNKNOWN_TASK_TYPE = "Error: Tipo de tarea desconocido en el archivo: ";
+    private static final String ERROR_PROCESS_TASK = "Error: No se pudo procesar la tarea en el archivo: ";
+    
     /**
      * Constructor for Storage.
      * @param filePath The path to the file to store tasks.
@@ -34,7 +40,7 @@ public class Storage {
                 Files.createFile(this.filePath);
             }
         } catch (IOException e) {
-            throw new ElchinoException("Error al crear el archivo de tareas.");
+            throw new ElchinoException(ERROR_CREATE_FILE);
         }
     }
 
@@ -48,15 +54,10 @@ public class Storage {
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Task task = parseTask(line);
-                if (task != null) {
-                    tasks.add(task);
-                } else {
-                    System.out.println("Error al cargar una tarea inválida: " + line);
-                }
+                tasks.add(parseTask(line));
             }
         } catch (IOException e) {
-            throw new ElchinoException("Error al leer el archivo.");
+            throw new ElchinoException(ERROR_READ_FILE);
         }
         return tasks;
     }
@@ -73,7 +74,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new ElchinoException("Error al escribir en el archivo.");
+            throw new ElchinoException(ERROR_WRITE_FILE);
         }
     }
 
@@ -83,11 +84,10 @@ public class Storage {
      * @param line The line to be parsed as a task.
      * @return The Task object parsed from the line.
      */
-    private Task parseTask(String line) {
+    private Task parseTask(String line) throws ElchinoException {
         String[] details = line.split(" \\| ");
         if (details.length < 3) {
-            System.out.println("⚠️ Error: Línea malformada en el archivo: " + line);
-            return null;
+            throw new ElchinoException(ERROR_MALFORMED_LINE + line);
         }
 
         String type = details[0];
@@ -102,27 +102,23 @@ public class Storage {
                     return todo;
                 case "D":
                     if (details.length < 4) {
-                        System.out.println("Error: Línea malformada en el archivo: " + line);
-                        return null;
+                        throw new ElchinoException(ERROR_MALFORMED_LINE + line);
                     }
                     Task deadline = new Deadline(description, details[3]);
                     if (isDone) deadline.setDone();
                     return deadline;
                 case "E":
                     if (details.length < 5) {
-                        System.out.println("Error: Línea malformada en el archivo: " + line);
-                        return null;
+                        throw new ElchinoException(ERROR_MALFORMED_LINE + line);
                     }
                     Task event = new Event(description, details[3], details[4]);
                     if (isDone) event.setDone();
                     return event;
                 default:
-                    System.out.println("Error: Tipo de tarea desconocido en el archivo: " + line);
-                    return null;
+                    throw new ElchinoException(ERROR_UNKNOWN_TASK_TYPE + type);
             }
         } catch (Exception e) {
-            System.out.println("Error: No se pudo procesar la tarea en el archivo: " + line);
-            return null;
+            throw new ElchinoException(ERROR_PROCESS_TASK + line);
         }
     }
 }
