@@ -76,9 +76,10 @@ public class Elchino {
     }
 
     /**
-     * Main method to run the El Chino chatbot.
+     * Starts ElChino chatbot on command line.
+     * Entry point of the program.
      *
-     * @param args The command line arguments.
+     * @param args Unused.
      */
     public static void main(String[] args) {
         new Elchino("data/tasks.txt").run();
