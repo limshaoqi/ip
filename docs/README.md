@@ -1,10 +1,9 @@
-// Inspired by https://github.com/Bryce-3D/ip/blob/master/docs/README.md
+[//]: # (Inspired by https://github.com/Bryce-3D/ip/blob/master/docs/README.md)
 
 # ElChino User Guide
 
-// Product screenshot goes here
+![Product Screenshot](./Ui.png)
 
-// Product intro goes here
 ElChino is an interactive chatbot that helps you manage your tasks. 
 
 ElChino is able to keep track of 3 types of tasks:
