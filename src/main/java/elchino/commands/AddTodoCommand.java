@@ -1,4 +1,5 @@
 package elchino.commands;
+
 import elchino.exceptions.*;
 import elchino.storage.Storage;
 import elchino.tasks.*;
@@ -9,13 +10,18 @@ import elchino.ui.Ui;
  */
 public class AddTodoCommand extends Command {
     private final String description;
-    public static final String MESSAGE_ADD_TODO = "Agregado: %s";
+
+    private static final String ERROR_EMPTY_DESCRIPTION = "La descripción no puede estar vacía";
+    private static final String MESSAGE_ADD_TODO = "Agregado: %s";
 
     /**
      * Creates a new AddTodoCommand with the given description
      * @param input Description of the todo task
      */
-    public AddTodoCommand(String input) {
+    public AddTodoCommand(String input) throws InvalidInputException {
+        if (input.isEmpty()) {
+            throw new InvalidInputException(ERROR_EMPTY_DESCRIPTION);
+        }
         this.description = input;
     }
 

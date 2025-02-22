@@ -1,4 +1,5 @@
 package elchino.exceptions;
+
 /**
  * Exception for handling invalid input.
  */

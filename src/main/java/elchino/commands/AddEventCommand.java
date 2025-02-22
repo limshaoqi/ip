@@ -1,4 +1,5 @@
 package elchino.commands;
+
 import elchino.exceptions.*;
 import elchino.storage.Storage;
 import elchino.tasks.*;
@@ -11,7 +12,9 @@ public class AddEventCommand extends Command {
     private final String description;
     private final String from;
     private final String to;
-    public static final String MESSAGE_ADD_EVENT = "Agregado: %s";
+
+    private static final String ERROR_MISSING_DATE = "Por favor usa /from y /to para especificar la fecha.";
+    private static final String MESSAGE_ADD_EVENT = "Agregado: %s";
 
     /**
      * Creates a new AddEventCommand with the given description, start and end dates
@@ -20,9 +23,14 @@ public class AddEventCommand extends Command {
      */
     public AddEventCommand(String input) throws InvalidInputException {
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
-            throw new InvalidInputException("Por favor usa /from y /to para especificar la fecha.");
+            throw new InvalidInputException(ERROR_MISSING_DATE);
         }
         String[] parts = input.split(" /from | /to ", 3);
+
+        if (parts.length != 3) {
+            throw new InvalidInputException(ERROR_MISSING_DATE);
+        }
+
         this.description = parts[0].trim();
         this.from = parts[1].trim();
         this.to = parts[2].trim();

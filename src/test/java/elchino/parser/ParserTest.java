@@ -11,4 +11,10 @@ public class ParserTest {
         Command command = Parser.parse("");
         assertInstanceOf(InvalidCommand.class, command, "Empty input should return InvalidCommand");
     }
+
+    @Test
+    public void testParseFindCommand() throws ElchinoException {
+        Command command = Parser.parse("find homework");
+        assertInstanceOf(FindCommand.class, command, "find command should return FindCommand");
+    }
 }

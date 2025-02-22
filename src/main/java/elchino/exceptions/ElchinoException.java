@@ -1,4 +1,5 @@
 package elchino.exceptions;
+
 import java.lang.Exception;
 
 /**
