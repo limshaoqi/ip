@@ -58,10 +58,10 @@ Sample usage:
 
 Create a new event
 
-Usage: `event <description> /at YYYY-MM-DD HH:MM to YYYY-MM-DD HH:MM`
+Usage: `event <description> /at dd/MM/yyyy HHmm to dd/MM/yyyy HHmm`
 
 Sample usage:
-`event project meeting /at 2021-09-30 14:00 to 2021-09-30 16:00`
+`event project meeting /at 01/10/2021 1400 to 01/10/2021 1600`
 
 # Mark Command
 
